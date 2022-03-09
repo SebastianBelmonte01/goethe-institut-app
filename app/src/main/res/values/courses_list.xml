@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="courses_list">
+        <item>A.1.1</item>
+        <item>A.1.2</item>
+        <item>A.2.1</item>
+        <item>A.2.2</item>
+        <item>B.1.1</item>
+        <item>B.1.2</item>
+        <item>B.2.1</item>
+        <item>B.2.2</item>
+        <item>C.1.1</item>
+        <item>C.1.2</item>
+        <item>C.2.1</item>
+        <item>C.2.2</item>
+    </string-array>
+</resources>
