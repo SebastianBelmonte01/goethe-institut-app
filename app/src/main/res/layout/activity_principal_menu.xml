@@ -19,7 +19,8 @@
         <ImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/logo" />
+            android:src="@drawable/logo"
+            android:id="@+id/logo"/>
 
         <TextView
             android:id="@+id/tvTitle"
@@ -40,7 +41,6 @@
         android:layout_below="@+id/navbar"
         android:id="@+id/rvData"
         />
-
 
 
 </LinearLayout>

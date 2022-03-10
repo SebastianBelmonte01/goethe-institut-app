@@ -1,12 +1,20 @@
 package com.example.goethe_institut;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +22,18 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class MaterialAdministration extends Fragment {
+
+    ArrayList<ModeloItem> lista;
+    Adaptador adaptador;
+    RecyclerView rvlista;
+    Button btnAtras, btnModificar, btnAnadir;
+
+
+    AddMaterial addMaterial;
+    ModifyMaterial modifyMaterial;
+
+
+    //AddMaterial
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,7 +78,96 @@ public class MaterialAdministration extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_material_administration, container, false);
+        View v = inflater.inflate(R.layout.fragment_material_administration, container, false);
+        lista = new ArrayList<>();
+        adaptador = new Adaptador(lista);
+        rvlista = v.findViewById(R.id.rvMaterials);
+        loadMaterials();
+        rvlista.setAdapter(adaptador);
+        rvlista.setLayoutManager(new LinearLayoutManager(v.getContext(),RecyclerView.VERTICAL,false));
+
+        btnAtras = v.findViewById(R.id.btnAtras);
+        btnAnadir = v.findViewById(R.id.btnAnadir);
+        btnModificar = v.findViewById(R.id.btnModificar);
+
+        rvlista.addOnItemTouchListener(new Toques(v.getContext(), rvlista, new Toques.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                builder.setTitle("¿Esta Seguro?");
+                builder.setMessage("Esta seguro de eliminar el material...");
+                builder.setCancelable(false);
+                builder.setPositiveButton("Sí", new DialogInterface.OnClickListener(){
+
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //TODO CREAR UINA FUNCION PARA ELIMINAR
+                    }
+                });
+
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener(){
+
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //TODO CREAR UINA FUNCION PARA ELIMINAR
+                    }
+                });
+                builder.show();
+
+
+
+                System.out.println("LONG LONG CLICK EN" + position);
+
+            }
+        }));
+        btnAtras.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(v.getContext() , PrincipalMenu.class);
+                startActivity(intent);
+            }
+        });
+
+        btnModificar.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                modifyMaterial = new ModifyMaterial();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.lilaContainer, modifyMaterial).commit();
+
+
+
+            }
+        });
+
+        btnAnadir.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                addMaterial = new AddMaterial();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.lilaContainer, addMaterial).commit();
+            }
+        });
+
+
+
+
+        return v;
+    }
+
+    void loadMaterials(){
+        lista.add(new ModeloItem(R.drawable.booka1
+                , "TIPO","COSTO CANTIDAD DESCRIPCION"));
+        lista.add(new ModeloItem(R.drawable.wbooka1
+                , "Administrar Materiales","Puede ver la cantidad de materiales que se encuentran en almacen."));
+        lista.add(new ModeloItem(R.drawable.booka2
+                , "Ver Biblioteca","Usted puede administrar los libros que se encuentran en la biblioteca."));
     }
 }

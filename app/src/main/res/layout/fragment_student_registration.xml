@@ -202,7 +202,7 @@
                     />
             </RelativeLayout>
 
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/rlButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -210,7 +210,14 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 >
-
+                <Button
+                    android:id="@+id/btnAtras"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:backgroundTint="#a1c815"
+                    android:layout_marginRight="20dp"
+                    android:text="Atás" />
                 <Button
                     android:id="@+id/btnEnviar"
                     android:layout_width="wrap_content"
@@ -219,7 +226,7 @@
                     android:backgroundTint="#a1c815"
                     android:text="Enviar" />
 
-            </RelativeLayout>
+            </LinearLayout>
 
 
 
