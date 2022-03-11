@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,12 +24,20 @@ public class MainActivity extends AppCompatActivity {
         password = findViewById(R.id.etPassword);
         btnSend = findViewById(R.id.btnSend);
 
+        DataBaseHelper db = new DataBaseHelper(MainActivity.this);
+
         btnSend.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,PrincipalMenu.class);
-                startActivity(intent);
+                if(db.isLoged(username.getText().toString(), Integer.parseInt(password.getText().toString()))){
+                    Intent intent = new Intent(MainActivity.this,PrincipalMenu.class);
+                    startActivity(intent);
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),"Usuario o contraseña incorrectos",Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
