@@ -1,5 +1,6 @@
 package com.example.goethe_institut;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -17,7 +18,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String PERSONA_CURSO = "PERSONA_CURSO";
 
     public DataBaseHelper(@Nullable Context context) {
-        super(context, "goethe.db", null, 1);
+        super(context, "goethe.db", null, 4);
     }
 
     @Override
@@ -29,11 +30,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         String booksTable = "CREATE TABLE " + LIBROS + " (ID TEXT PRIMARY KEY, TITULO TEXT, AUTOR TEXT, CANTIDAD INTEGER, IMAGEN BLOB)";
 
         //MIDLE TABLES
-        /*
-                String materialPersonTable = "CREATE TABLE " + PERSONA_MATERIAL + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, CANTIDAD INTEGER, FOREIGN KEY (PERSONA_CI) REFERENCES PERSONA (CI), FOREIGN KEY (MATERIAL_ID) REFERENCES MATERIAL (ID))";
-        String reservationTable = "CREATE TABLE " + RESERVA + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, ESTADO TEXT, FOREIGN KEY(PERSONA_CI) REFERENCES PERSONA(CI), FOREIGN KEY(LIBROS_ID) REFERENCES LIBROS(ID))";
-        String personCoursesTable = "CREATE TABLE " + PERSONA_CURSO + " (ID INTEGER  PRIMARY KEY AUTOINCREMENT, FOREIGN KEY(PERSONA_CI) REFERENCES PERSONA (CI), FOREIGN KEY(CURSO_ID) REFERENCES CURSO(ID))";
-         */
+
+        //String materialPersonTable = "CREATE TABLE " + PERSONA_MATERIAL + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, CANTIDAD INTEGER, FOREIGN KEY (PERSONA_CI) REFERENCES PERSONA (CI), FOREIGN KEY (MATERIAL_ID) REFERENCES MATERIAL (ID))";
+        //String reservationTable = "CREATE TABLE " + RESERVA + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, ESTADO TEXT, FOREIGN KEY(PERSONA_CI) REFERENCES PERSONA(CI), FOREIGN KEY(LIBROS_ID) REFERENCES LIBROS(ID))";
 
         //TABLE CREATION
         db.execSQL(courseTable);
@@ -47,9 +46,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         db.execSQL(materialPersonTable);
         db.execSQL(reservationTable);
-        db.execSQL(personCoursesTable);
 
          */
+
 
 
         //CONSTANT VALUES
@@ -92,10 +91,21 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         //INSERT INTO PERSONA
         String insertIntoPersona = "INSERT INTO " + PERSONA +  "(CI, NOMBRE, APELLIDO, DIRECCION, TELEFONO, FECHANACIMIENTO, USUARIO, PASSWORD, ADMINISTRADOR) VALUES ('18928912', 'Sebastian', 'Belmonte', 'Av.Direccion', '270000', '23-12-2001', 'usuario',"+0000+","+1+")";
         db.execSQL(insertIntoPersona);
+
+
+
+        String personCoursesTable = "CREATE TABLE " + PERSONA_CURSO + " (ID INTEGER  PRIMARY KEY AUTOINCREMENT, PERSONA_CI TEXT, CURSO_ID INTEGER)";
+        String insertPersonCourses = "INSERT INTO " + PERSONA_CURSO + " (PERSONA_CI, CURSO_ID) values ('1', " + 10 + ")";
+        db.execSQL(personCoursesTable);
+        db.execSQL(insertPersonCourses);
+
+
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
+
+
 
     }
 
@@ -112,4 +122,64 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         return false;
     }
+
+    public void insertPersona(Persona persona){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("CI", persona.getCi());
+        cv.put("NOMBRE",persona.getName());
+        cv.put("APELLIDO", persona.getLastName());
+        cv.put("DIRECCION", persona.getDirection());
+        cv.put("TELEFONO", persona.getTelefono());
+        cv.put("FECHANACIMIENTO", persona.getBornDate());
+        cv.put("USUARIO", persona.getUsuario());
+        cv.put("PASSWORD", persona.getPassword());
+        cv.put("ADMINISTRADOR", persona.getAdmin());
+
+        db.insert(PERSONA, null, cv);
+
+    }
+
+    public void insertPersonCourses(String personCi, int courseId){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put("PERSONA_CI", personCi);
+        cv.put("CURSO_ID", courseId);
+
+        db.insert(PERSONA_CURSO, null, cv);
+    }
+
+    public Persona searchPerson(String ci) {
+        String query = "SELECT P.CI, P.NOMBRE, P.APELLIDO, P.DIRECCION, P.TELEFONO, P.FECHANACIMIENTO, P.USUARIO, P.PASSWORD, P.ADMINISTRADOR FROM " + PERSONA  + " P, " + PERSONA_CURSO + " PC, " + CURSO + " C  WHERE P.CI = '" + ci + "' AND '" + ci + "' = PC.PERSONA_CI AND PC.CURSO_ID = C.ID" ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, new String[]{});
+        if (cursor.moveToFirst()) {
+            return new Persona(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), null, 0, 0);
+        }
+        return  null;
+    }
+    public Integer searchCourse(String ci){
+        String query = "SELECT C.ID FROM " + PERSONA  + " P, " + PERSONA_CURSO + " PC, " + CURSO + " C  WHERE P.CI = '" + ci + "' AND '" + ci + "' = PC.PERSONA_CI AND PC.CURSO_ID = C.ID" ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, new String[]{});
+        if (cursor.moveToFirst()) {
+            return cursor.getInt(0);
+        }
+        return  -1;
+    }
+    public void updatePerson(Persona persona){
+        String query = "UPDATE " + PERSONA + " SET NOMBRE = '"+ persona.getName() + "', APELLIDO = '" + persona.getLastName() + "', DIRECCION = '" + persona.getDirection() +"', TELEFONO = '" + persona.getTelefono() + "' WHERE CI = '" + persona.getCi() + "'";
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(query);
+    }
+
+    public void updatePersonCourse(String ci, int idCourse){
+        String query = "UPDATE " + PERSONA_CURSO + " SET  CURSO_ID = " + idCourse + " WHERE PERSONA_CI = '" + ci + "'";
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(query);
+    }
+
+
+
 }

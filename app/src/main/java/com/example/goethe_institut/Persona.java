@@ -3,17 +3,17 @@ package com.example.goethe_institut;
 import java.util.Date;
 
 public class Persona {
-    private int ci;
+    private String ci;
     private String name;
     private String lastName;
     private  String direction;
-    private int telefono;
-    private Date bornDate;
+    private String telefono;
+    private String bornDate;
     private String usuario;
     private int password;
-    private boolean admin;
+    private int admin;
 
-    public Persona(int ci, String name, String lastName, String direction, int telefono, Date bornDate, String usuario, int password, boolean admin) {
+    public Persona(String ci, String name, String lastName, String direction, String telefono, String bornDate, String usuario, int password, int admin) {
         this.ci = ci;
         this.name = name;
         this.lastName = lastName;
@@ -25,11 +25,11 @@ public class Persona {
         this.admin = admin;
     }
 
-    public int getCi() {
+    public String getCi() {
         return ci;
     }
 
-    public void setCi(int ci) {
+    public void setCi(String ci) {
         this.ci = ci;
     }
 
@@ -57,19 +57,19 @@ public class Persona {
         this.direction = direction;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
-    public Date getBornDate() {
+    public String getBornDate() {
         return bornDate;
     }
 
-    public void setBornDate(Date bornDate) {
+    public void setBornDate(String bornDate) {
         this.bornDate = bornDate;
     }
 
@@ -89,13 +89,11 @@ public class Persona {
         this.password = password;
     }
 
-    public boolean isAdmin() {
+    public int getAdmin() {
         return admin;
     }
 
-    public void setAdmin(boolean admin) {
+    public void setAdmin(int admin) {
         this.admin = admin;
     }
-
-
 }

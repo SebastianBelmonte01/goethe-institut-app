@@ -29,6 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/etUsername"
         android:layout_centerHorizontal="true"
+        android:inputType="numberPassword"
         android:layout_marginTop="40dp"
         android:backgroundTint="@color/white"
         android:textColorHint="@color/white"

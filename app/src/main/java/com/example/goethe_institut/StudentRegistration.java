@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,7 +22,8 @@ import android.widget.Spinner;
 public class StudentRegistration extends Fragment {
 
     Button btnEnviar, btnAtras;
-    EditText ci, nombre, lastName, direccion, telefono, fechaNacimiento, curso;
+    EditText ci, nombre, lastName, direccion, telefono, fechaNacimiento;
+    Spinner curso;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -86,12 +88,36 @@ public class StudentRegistration extends Fragment {
 
         btnEnviar = (Button) v.findViewById(R.id.btnEnviar);
         btnAtras = v.findViewById(R.id.btnAtras);
+        //EditText ci, nombre, lastName, direccion, telefono, fechaNacimiento, curso;
+
+        ci = v.findViewById(R.id.ci);
+        nombre = v.findViewById(R.id.nombre);
+        lastName = v.findViewById(R.id.apellido);
+        direccion = v.findViewById(R.id.direccion);
+        telefono = v.findViewById(R.id.telefono);
+        fechaNacimiento = v.findViewById(R.id.fechaNacimiento);
+        curso = v.findViewById(R.id.spnCursos);
+
+
+        DataBaseHelper db = new DataBaseHelper(v.getContext());
+
+
 
         btnEnviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(v.getContext() , PrincipalMenu.class);
-                startActivity(intent);
+                if(ci!=null && nombre!=null && lastName!=null && direccion!=null && telefono!=null && fechaNacimiento!=null && curso != null){
+                    //System.out.println("LE DISTE CLICK A LA OPCION: " + curso.getSelectedItemPosition());
+                    Persona persona = new Persona(ci.getText().toString(), nombre.getText().toString(), lastName.getText().toString(), direccion.getText().toString(), telefono.getText().toString(), fechaNacimiento.getText().toString(), "estudiante", 1234, 0 );
+                    db.insertPersona(persona);
+                    db.insertPersonCourses(persona.getCi(), curso.getSelectedItemPosition());
+                    Intent intent = new Intent(v.getContext(), PrincipalMenu.class);
+                    startActivity(intent);
+                }
+                else{
+                    Toast.makeText(v.getContext(), "Debe ingresar datos en todos los campos", Toast.LENGTH_SHORT);
+                }
+
 
             }
         });

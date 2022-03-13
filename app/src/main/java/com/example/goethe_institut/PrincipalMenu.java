@@ -30,6 +30,7 @@ public class PrincipalMenu extends AppCompatActivity {
 
     StudentRegistration studentRegistration;
     MaterialAdministration materialAdministration;
+    StudentSearch studentSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +95,12 @@ public class PrincipalMenu extends AppCompatActivity {
                             break;
 
                     case 2: break;
-                    case 3: break;
+                    case 3: rvlista.setVisibility(View.GONE);
+                            studentSearch = new StudentSearch();
+                            getSupportFragmentManager().beginTransaction().replace(R.id.lilaContainer, studentSearch).commit();
+                            tvTitle.setText("Busqueda Estudiante");
+                            tvTitle.setTextSize(25);
+                            break;
 
                 }
                 System.out.println(position);

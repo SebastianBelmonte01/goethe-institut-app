@@ -5,7 +5,7 @@
       <map>
         <entry key="..\:/Semestre Actual/Universidad/Programacion de Dispositivos Moviles/GoetheInstitut/app/src/main/res/layout/activity_default_navbar.xml" value="0.17604166666666668" />
         <entry key="..\:/Semestre Actual/Universidad/Programacion de Dispositivos Moviles/GoetheInstitut/app/src/main/res/layout/activity_general.xml" value="0.19882246376811594" />
-        <entry key="..\:/Semestre Actual/Universidad/Programacion de Dispositivos Moviles/GoetheInstitut/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Semestre Actual/Universidad/Programacion de Dispositivos Moviles/GoetheInstitut/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Semestre Actual/Universidad/Programacion de Dispositivos Moviles/GoetheInstitut/app/src/main/res/layout/activity_main2.xml" value="0.24895833333333334" />
         <entry key="..\:/Semestre Actual/Universidad/Programacion de Dispositivos Moviles/GoetheInstitut/app/src/main/res/layout/activity_principal_menu.xml" value="0.1" />
         <entry key="..\:/Semestre Actual/Universidad/Programacion de Dispositivos Moviles/GoetheInstitut/app/src/main/res/layout/activity_principal_menu2.xml" value="0.24895833333333334" />
@@ -17,7 +17,9 @@
         <entry key="..\:/Semestre Actual/Universidad/Programacion de Dispositivos Moviles/GoetheInstitut/app/src/main/res/layout/fragment_modify_material.xml" value="0.1" />
         <entry key="..\:/Semestre Actual/Universidad/Programacion de Dispositivos Moviles/GoetheInstitut/app/src/main/res/layout/fragment_option_menu.xml" value="0.1" />
         <entry key="..\:/Semestre Actual/Universidad/Programacion de Dispositivos Moviles/GoetheInstitut/app/src/main/res/layout/fragment_prueba.xml" value="0.24895833333333334" />
+        <entry key="..\:/Semestre Actual/Universidad/Programacion de Dispositivos Moviles/GoetheInstitut/app/src/main/res/layout/fragment_student_information.xml" value="0.1" />
         <entry key="..\:/Semestre Actual/Universidad/Programacion de Dispositivos Moviles/GoetheInstitut/app/src/main/res/layout/fragment_student_registration.xml" value="0.1" />
+        <entry key="..\:/Semestre Actual/Universidad/Programacion de Dispositivos Moviles/GoetheInstitut/app/src/main/res/layout/fragment_student_search.xml" value="0.24895833333333334" />
         <entry key="..\:/Semestre Actual/Universidad/Programacion de Dispositivos Moviles/GoetheInstitut/app/src/main/res/layout/originalitem.xml" value="0.24895833333333334" />
         <entry key="..\:/Semestre Actual/Universidad/Programacion de Dispositivos Moviles/GoetheInstitut/app/src/main/res/layout/style_option_menu.xml" value="0.1" />
         <entry key="..\:/Semestre Actual/Universidad/Programacion de Dispositivos Moviles/GoetheInstitut/app/src/main/res/menu/listaa.xml" value="0.24895833333333334" />

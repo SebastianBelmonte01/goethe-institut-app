@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1b1464"
+    tools:context=".StudentSearch">
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="90dp"
+        android:id="@+id/busquedaPrincipal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="Ingrese la cédula de identidad:"
+            android:textColorHint="#8c8c8c"
+            android:textSize="20dp"
+            android:id="@+id/tvCedula"/>
+
+        <EditText
+            android:id="@+id/etCedula"
+            android:layout_width="270dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvCedula"
+            android:layout_marginTop="30dp"
+            android:hint="CI"
+            android:textColor="@color/white"
+            android:textColorHint="#8c8c8c" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/etCedula">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:backgroundTint="#a1c815"
+                android:text="Atrás"
+                android:layout_marginRight="10dp"
+                android:id="@+id/btnAtras"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:backgroundTint="#a1c815"
+                android:text="Buscar"
+                android:id="@+id/btnBuscar"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/busquedaPrincipal"
+        android:layout_marginTop="20dp"
+        android:id="@+id/studentInformation"/>
+
+
+
+
+
+</RelativeLayout>
