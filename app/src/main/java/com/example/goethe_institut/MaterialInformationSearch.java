@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -90,6 +91,8 @@ public class MaterialInformationSearch extends Fragment {
         materialCantidad.setText(material.getCantidad() + "");
         materialDescripcion.setText(material.getDescription());
 
+        ScrollView scrollView = v.findViewById(R.id.scrollview);
+
 
         btnModificar = v.findViewById(R.id.btnModificar);
 
@@ -98,6 +101,7 @@ public class MaterialInformationSearch extends Fragment {
             @Override
             public void onClick(View view) {
                 //TODO ESTE ES EL CASO DONDE TODOS LOS CAMPOS ESTAN COMPLETOS
+
                 if(!materialTipo.getText().toString().equals("") && !materialCosto.getText().toString().equals("") && !materialCantidad.getText().toString().equals("")
                         && !materialDescripcion.getText().toString().equals("") && !materialDireccionImagen.getText().toString().equals("")){
 
@@ -109,6 +113,7 @@ public class MaterialInformationSearch extends Fragment {
                          */
                         db.updateMaterial(materialUpdate, true);
                         Toast.makeText(getContext(), "Se realizo la modificación con éxito", Toast.LENGTH_SHORT).show();
+                        scrollView.setVisibility(View.GONE);
 
                     }
                     catch (Exception e){
@@ -127,6 +132,9 @@ public class MaterialInformationSearch extends Fragment {
                          */
                         db.updateMaterial(materialUpdate, false);
                         Toast.makeText(getContext(), "Se realizo la modificación con éxito", Toast.LENGTH_SHORT).show();
+                        scrollView.setVisibility(View.GONE);
+
+
 
                     }
                     catch (Exception e){

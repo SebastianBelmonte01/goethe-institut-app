@@ -32,6 +32,10 @@ public class MaterialAdministration extends Fragment {
     AddMaterial addMaterial;
     ModifyMaterial modifyMaterial;
 
+    ArrayList<Integer> idList = new ArrayList<>();
+
+    MaterialAdministration mad;
+
 
     //AddMaterial
 
@@ -100,14 +104,23 @@ public class MaterialAdministration extends Fragment {
             public void onLongClick(View view, int position) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                builder.setTitle("¿Esta Seguro?");
-                builder.setMessage("Esta seguro de eliminar el material...");
+                builder.setTitle("¿Está Seguro?");
+                builder.setMessage("Está seguro de eliminar el material...");
                 builder.setCancelable(false);
                 builder.setPositiveButton("Sí", new DialogInterface.OnClickListener(){
 
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         //TODO CREAR UINA FUNCION PARA ELIMINAR
+                        int id = idList.get(position);
+                        System.out.println(id);
+                        DataBaseHelper db = new DataBaseHelper(getContext());
+                        db.deleteMaterial(id);
+                        mad = new MaterialAdministration();
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.lilaContainer, mad).commit();
+
+
+
                     }
                 });
 
@@ -165,6 +178,7 @@ public class MaterialAdministration extends Fragment {
         DataBaseHelper db = new DataBaseHelper(getContext());
         for(Material m : db.selectMaterials() ){
             lista.add(new ModeloItemImagen(m.getImage(), m.getType(), m.getDescription() +  "\n ID: " + m.getId() + "\n Cantidad: " + m.getCantidad() + "\n Costo " + m.getCost()));
+            idList.add(m.getId());
         }
         db.selectMaterials();
     }

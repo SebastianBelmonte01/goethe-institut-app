@@ -157,8 +157,6 @@ public class StudentInformation extends Fragment {
                 RelativeLayout newStudentForm;
                 newStudentForm = v.findViewById(R.id.newStudentForm);
                 newStudentForm.setVisibility(View.GONE);
-
-
             }
         });
 

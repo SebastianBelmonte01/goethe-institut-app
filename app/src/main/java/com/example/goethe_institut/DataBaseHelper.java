@@ -286,9 +286,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             cv.put("CANTIDAD", material.getCantidad());
             cv.put("DESCRIPCION", material.getDescription());
             cv.put("IMAGEN", bytesImage);
-
-
-
         }
         else{
 
@@ -301,6 +298,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
        db.update(MATERIAL, cv, "ID = " + material.getId(), null);
 
 
+    }
+
+    public void deleteMaterial(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(MATERIAL,"ID = " + id, null);
     }
 
 
