@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,6 +30,7 @@ public class AddMaterial extends Fragment {
 
     Button btnEnviar, btnAtras;
     MaterialAdministration materialAdministration;
+    EditText materialCodigo, materialTipo, materialCosto, materialCantidad, materialDescripcion, materialDireccionImagen;
 
 
     public AddMaterial() {
@@ -66,13 +69,39 @@ public class AddMaterial extends Fragment {
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_add_material, container, false);
-
         btnEnviar = v.findViewById(R.id.btnEnviar);
         btnAtras = v.findViewById(R.id.btnAtras);
+
+        materialCodigo = v.findViewById(R.id.materialCodigo);
+        materialTipo = v.findViewById(R.id.materialTipo);
+        materialCosto = v.findViewById(R.id.materialCosto);
+        materialCantidad = v.findViewById(R.id.materialCantidad);
+        materialDescripcion = v.findViewById(R.id.materialDescripcion);
+        materialDireccionImagen = v.findViewById(R.id.materialDireccionImagen);
+
+
+
+
         btnEnviar.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View view) {
+
+                if(!materialCodigo.getText().toString().equals("") && !materialTipo.getText().toString().equals("") && !materialCosto.getText().toString().equals("") &&
+                !materialCantidad.getText().toString().equals("") && !materialCantidad.getText().toString().equals("") && !materialDescripcion.getText().toString().equals("") && !materialDireccionImagen.getText().toString().equals("")){
+                   try {
+                       Material material = new Material(Integer.parseInt(materialCodigo.getText().toString()), materialTipo.getText().toString(), Double.parseDouble(materialCosto.getText().toString()), Integer.parseInt(materialCantidad.getText().toString()), materialDireccionImagen.getText().toString(), materialDescripcion.getText().toString(), null);
+                       DataBaseHelper db = new DataBaseHelper(v.getContext());
+                       db.insertMaterial(material);
+
+                   }
+                   catch (Exception e){
+                       Toast.makeText(getContext(),"Error de tipo " + e, Toast.LENGTH_SHORT).show();
+                   }
+                }
+
+                //    EditText materialCodigo, materialTipo, materialCosto, materialCantidad, materialDescripcion, materialDireccionImagen;
+
                 Intent intent = new Intent(v.getContext() , PrincipalMenu.class);
                 startActivity(intent);
 

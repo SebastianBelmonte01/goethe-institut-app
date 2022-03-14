@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,8 +28,10 @@ public class ModifyMaterial extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    Button btnEnviar, btnAtras;
+    Button btnBuscar, btnAtras;
     MaterialAdministration materialAdministration;
+    EditText materialCodigo;
+    MaterialInformationSearch materialInformationSearch;
 
     public ModifyMaterial() {
         // Required empty public constructor
@@ -65,8 +69,11 @@ public class ModifyMaterial extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_modify_material, container, false);
 
-        btnEnviar = v.findViewById(R.id.btnEnviar);
+        btnBuscar = v.findViewById(R.id.btnBuscar);
         btnAtras = v.findViewById(R.id.btnAtras);
+        materialCodigo = v.findViewById(R.id.materialCodigo);
+
+
         btnAtras.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -74,6 +81,41 @@ public class ModifyMaterial extends Fragment {
                 materialAdministration = new MaterialAdministration();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.lilaContainer, materialAdministration).commit();
 
+
+            }
+        });
+
+        btnBuscar.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                int id = 0;
+                if(!materialCodigo.getText().toString().equals("")){
+                    try {
+                        id = Integer.parseInt(materialCodigo.getText().toString());
+                    }catch (NumberFormatException e){
+                        Toast.makeText(v.getContext(), "Debe ingresar un código existente", Toast.LENGTH_SHORT).show();
+                    }
+
+                    DataBaseHelper db = new DataBaseHelper(v.getContext());
+                    if(db.selectMaterial(id) != null){
+                        materialInformationSearch = new MaterialInformationSearch();
+                        materialInformationSearch.setMaterial(db.selectMaterial(id));
+                        materialInformationSearch.setMaterials(db.selectMaterials());
+                        getFragmentManager().beginTransaction().replace(R.id.materialForm, materialInformationSearch).commit();
+
+                    }
+                    else{
+                        Toast.makeText(v.getContext(), "No se encontro el material con dicho código", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                    //TODO BUSCAR EL ID EN LA BASE DE DATOS
+                    //TODO SI EXISTE EL CODIGO CREAR UN CONSTRUCTOR PARA EL FRAGMENT
+                    //SI NO EXISTE LAZAR EXCEPTION
+
+
+                }
 
             }
         });

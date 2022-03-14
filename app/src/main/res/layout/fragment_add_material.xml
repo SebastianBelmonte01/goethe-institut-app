@@ -81,11 +81,11 @@
 
             <EditText
                 android:id="@+id/materialCosto"
-                android:inputType="numberDecimal"
                 android:layout_width="270dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:hint="Costo"
+                android:inputType="numberDecimal"
                 android:textColor="@color/white"
 
                 android:textColorHint="#8c8c8c" />
@@ -109,11 +109,11 @@
 
             <EditText
                 android:id="@+id/materialCantidad"
-                android:inputType="number"
                 android:layout_width="270dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:hint="Cantidad"
+                android:inputType="number"
                 android:textColor="@color/white"
 
                 android:textColorHint="#8c8c8c" />

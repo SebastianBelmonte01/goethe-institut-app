@@ -9,7 +9,9 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
+        android:layout_centerHorizontal="true"
+        android:id="@+id/wrapper"
+        android:layout_marginTop="20dp">
 
         <RelativeLayout
             android:id="@+id/rlCi"
@@ -35,175 +37,39 @@
                 android:textColorHint="#8c8c8c" />
         </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/rlName"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rlCi"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true">
 
-            <TextView
+            <Button
+                android:id="@+id/btnAtras"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ingrese el tipo:"
-                android:textColor="@color/white"
-                android:textColorHint="#8c8c8c"
+                android:backgroundTint="#a1c815"
+                android:layout_marginRight="20dp"
+                android:text="Atrás" />
 
-                android:textSize="20dp" />
-
-            <EditText
-                android:id="@+id/materialTipo"
-                android:layout_width="270dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-
-                android:hint="Tipo"
-                android:textColor="@color/white"
-                android:textColorHint="#8c8c8c" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/rlLastName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/rlName"
-            android:layout_marginTop="20dp">
-
-            <TextView
+            <Button
+                android:id="@+id/btnBuscar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ingrese Costo:"
-                android:textColor="@color/white"
-                android:textColorHint="#8c8c8c"
-
-                android:textSize="20dp" />
-
-            <EditText
-                android:id="@+id/materialCosto"
-                android:inputType="numberDecimal"
-                android:layout_width="270dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:hint="Costo"
-                android:textColor="@color/white"
-
-                android:textColorHint="#8c8c8c" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/rlDireccion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/rlLastName"
-            android:layout_marginTop="20dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ingrese la cantidad:"
-                android:textColor="@color/white"
-                android:textColorHint="#8c8c8c"
-
-                android:textSize="20dp" />
-
-            <EditText
-                android:id="@+id/materialCantidad"
-                android:inputType="number"
-                android:layout_width="270dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:hint="Cantidad"
-                android:textColor="@color/white"
-
-                android:textColorHint="#8c8c8c" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/rlTelefono"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/rlDireccion"
-            android:layout_marginTop="20dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ingrese la descripción:"
-                android:textColor="@color/white"
-                android:textColorHint="#8c8c8c"
-
-                android:textSize="20dp" />
-
-            <EditText
-                android:id="@+id/materialDescripcion"
-                android:layout_width="270dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:hint="Descripción"
-                android:textColor="@color/white"
-
-                android:textColorHint="#8c8c8c" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/rlFechaNacimiento"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/rlTelefono"
-            android:layout_marginTop="20dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ingrese la dirección de la imagen:"
-                android:textColor="@color/white"
-                android:textColorHint="#8c8c8c"
-
-                android:textSize="20dp" />
-
-            <EditText
-                android:id="@+id/materialDireccionImagen"
-                android:layout_width="270dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:hint="nombre.jpg"
-                android:textColor="@color/white"
-                android:textColorHint="#8c8c8c" />
-
-
-        </RelativeLayout>
-
-
-
+                android:backgroundTint="#a1c815"
+                android:text="Buscar" />
+        </LinearLayout>
 
 
 
     </RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true">
-
-        <Button
-            android:id="@+id/btnAtras"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#a1c815"
-            android:layout_marginRight="20dp"
-            android:text="Atrás" />
-
-        <Button
-            android:id="@+id/btnEnviar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#a1c815"
-            android:text="Enviar" />
+    <RelativeLayout
+        android:id="@+id/materialForm"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/wrapper" />
 
 
-
-
-    </LinearLayout>
 
 </RelativeLayout>

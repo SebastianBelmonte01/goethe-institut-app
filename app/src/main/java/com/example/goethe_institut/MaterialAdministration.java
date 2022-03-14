@@ -23,8 +23,8 @@ import java.util.ArrayList;
  */
 public class MaterialAdministration extends Fragment {
 
-    ArrayList<ModeloItem> lista;
-    Adaptador adaptador;
+    ArrayList<ModeloItemImagen> lista;
+    AdaptadorImagen adaptador;
     RecyclerView rvlista;
     Button btnAtras, btnModificar, btnAnadir;
 
@@ -80,7 +80,7 @@ public class MaterialAdministration extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_material_administration, container, false);
         lista = new ArrayList<>();
-        adaptador = new Adaptador(lista);
+        adaptador = new AdaptadorImagen(lista);
         rvlista = v.findViewById(R.id.rvMaterials);
         loadMaterials();
         rvlista.setAdapter(adaptador);
@@ -115,14 +115,13 @@ public class MaterialAdministration extends Fragment {
 
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        //TODO CREAR UINA FUNCION PARA ELIMINAR
                     }
                 });
                 builder.show();
 
 
 
-                System.out.println("LONG LONG CLICK EN" + position);
+                System.out.println("LONG LONG CLICK EN " + position);
 
             }
         }));
@@ -163,11 +162,10 @@ public class MaterialAdministration extends Fragment {
     }
 
     void loadMaterials(){
-        lista.add(new ModeloItem(R.drawable.booka1
-                , "TIPO","COSTO CANTIDAD DESCRIPCION"));
-        lista.add(new ModeloItem(R.drawable.wbooka1
-                , "Administrar Materiales","Puede ver la cantidad de materiales que se encuentran en almacen."));
-        lista.add(new ModeloItem(R.drawable.booka2
-                , "Ver Biblioteca","Usted puede administrar los libros que se encuentran en la biblioteca."));
+        DataBaseHelper db = new DataBaseHelper(getContext());
+        for(Material m : db.selectMaterials() ){
+            lista.add(new ModeloItemImagen(m.getImage(), m.getType(), m.getDescription() +  "\n ID: " + m.getId() + "\n Cantidad: " + m.getCantidad() + "\n Costo " + m.getCost()));
+        }
+        db.selectMaterials();
     }
 }

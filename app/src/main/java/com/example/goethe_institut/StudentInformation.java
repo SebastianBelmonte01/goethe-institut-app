@@ -154,11 +154,10 @@ public class StudentInformation extends Fragment {
 
                 db.updatePersonCourse(person.getCi(), coursesList.indexOf(spinner.getSelectedItem()));
                 Toast.makeText(v.getContext(), "Modificación realizada", Toast.LENGTH_SHORT).show();
-                StudentInformation studentInformation = new StudentInformation();
                 RelativeLayout newStudentForm;
                 newStudentForm = v.findViewById(R.id.newStudentForm);
                 newStudentForm.setVisibility(View.GONE);
-                //getFragmentManager().beginTransaction().replace(R.id.newStudentForm, null).commit();
+
 
             }
         });

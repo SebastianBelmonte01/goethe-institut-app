@@ -5,8 +5,14 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Environment;
 
 import androidx.annotation.Nullable;
+
+import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String MATERIAL = "MATERIAL";
@@ -178,6 +184,123 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         String query = "UPDATE " + PERSONA_CURSO + " SET  CURSO_ID = " + idCourse + " WHERE PERSONA_CI = '" + ci + "'";
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL(query);
+    }
+
+    public void insertMaterial(Material material){
+        String route = Environment.getExternalStorageDirectory().getPath()+"/Download/" + material.getImageDirection();
+        System.out.println(route);
+        Bitmap bitmap = BitmapFactory.decodeFile(route);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+        bitmap.compress(Bitmap.CompressFormat.PNG, 0, byteArrayOutputStream);
+        byte[] bytesImage = byteArrayOutputStream.toByteArray();
+        ContentValues cv = new ContentValues();
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        cv.put("ID", material.getId());
+        cv.put("TIPO", material.getType());
+        cv.put("COSTO", material.getCost());
+        cv.put("CANTIDAD", material.getCantidad());
+        cv.put("DESCRIPCION", material.getDescription());
+        cv.put("IMAGEN", bytesImage);
+
+        db.insert(MATERIAL, null, cv);
+
+
+    }
+
+    public ArrayList<Material> selectMaterials (){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + MATERIAL;
+        ArrayList<Material> materials = new ArrayList<Material>();
+
+        Cursor cursor = db.rawQuery(query, null);
+
+                /*
+                String materialTable = "CREATE TABLE " + MATERIAL + " (ID INTEGER PRIMARY KEY, TIPO TEXT, COSTO NUMERIC, " +
+                "CANTIDAD INTEGER, DESCRIPCION TEXT, IMAGEN  BLOB)";
+
+        Drawable drawable = new BitmapDrawable(getResources(),bitmap);
+        logo.setImageDrawable(drawable);
+
+         */
+
+        if(cursor.moveToFirst()){
+            do{
+                int id = cursor.getInt(0);
+                System.out.println(id + " IDDDD");
+                String type = cursor.getString(1);
+                double cost = cursor.getDouble(2);
+                int cantidad = cursor.getInt(3);
+                String description = cursor.getString(4);
+                byte[] bytesImage = cursor.getBlob(5);
+
+                Bitmap image = BitmapFactory.decodeByteArray(bytesImage, 0, bytesImage.length);
+                materials.add(new Material(id, type, cost, cantidad, null, description, image));
+
+
+            }while(cursor.moveToNext());
+            cursor.close();
+            db.close();
+        }
+
+
+        return materials;
+
+    }
+
+    public Material selectMaterial(int id){
+        String query = "SELECT * FROM " + MATERIAL + " WHERE ID = " + id;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if(cursor.moveToFirst()){
+            return new Material(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(3), null,  cursor.getString(4), null);
+        }
+        return null;
+
+    }
+
+    /**
+     *
+     * @param material object of Material Type
+     * @param changeImage if its true, the image path has to be changed, else has not  to be changed
+     */
+    public void updateMaterial(Material material, boolean changeImage){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+
+        ContentValues cv = new ContentValues();
+
+
+        if(changeImage){
+            String route = Environment.getExternalStorageDirectory().getPath()+"/Download/" + material.getImageDirection();
+            System.out.println(route);
+            Bitmap bitmap = BitmapFactory.decodeFile(route);
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+            bitmap.compress(Bitmap.CompressFormat.PNG, 0, byteArrayOutputStream);
+            byte[] bytesImage = byteArrayOutputStream.toByteArray();
+
+            cv.put("TIPO", material.getType());
+            cv.put("COSTO", material.getCost());
+            cv.put("CANTIDAD", material.getCantidad());
+            cv.put("DESCRIPCION", material.getDescription());
+            cv.put("IMAGEN", bytesImage);
+
+
+
+        }
+        else{
+
+            cv.put("TIPO", material.getType());
+            cv.put("COSTO", material.getCost());
+            cv.put("CANTIDAD", material.getCantidad());
+            cv.put("DESCRIPCION", material.getDescription());
+
+        }
+       db.update(MATERIAL, cv, "ID = " + material.getId(), null);
+
+
     }
 
 
