@@ -104,6 +104,8 @@ public class BookModification extends Fragment {
                     DataBaseHelper db = new DataBaseHelper(getContext());
                     db.updateBook(new Book(book.getCodigo(),bookTitle.getText().toString(),
                             bookAuthor.getText().toString(), Integer.parseInt(bookCantidad.getText().toString()), bookDireccionImagen.getText().toString(), null));
+                    books = new Books();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.lilaContainer, books).commit();
 
 
                 }
@@ -114,6 +116,8 @@ public class BookModification extends Fragment {
                     DataBaseHelper db = new DataBaseHelper(getContext());
                     db.updateBook(new Book(book.getCodigo(),bookTitle.getText().toString(),
                             bookAuthor.getText().toString(), Integer.parseInt(bookCantidad.getText().toString()), null, null));
+                    books = new Books();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.lilaContainer, books).commit();
 
                 }
 

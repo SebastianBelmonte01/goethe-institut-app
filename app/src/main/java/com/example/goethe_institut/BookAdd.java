@@ -78,8 +78,7 @@ public class BookAdd extends Fragment {
 
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(v.getContext() , PrincipalMenu.class);
-                startActivity(intent);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.lilaContainer, new Books());
             }
         });
 

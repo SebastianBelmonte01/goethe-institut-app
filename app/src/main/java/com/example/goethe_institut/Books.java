@@ -143,7 +143,6 @@ public class Books extends Fragment {
 
             @Override
             public void onClick(View view) {
-                //TODO LLEVAR A UN FRAGEMNT DONDE SE PUEDA AÑADIR
                 bookAdd = new BookAdd();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.lilaContainer, bookAdd).commit();
             }
