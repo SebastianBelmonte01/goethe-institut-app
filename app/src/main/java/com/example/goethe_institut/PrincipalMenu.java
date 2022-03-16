@@ -28,9 +28,11 @@ public class PrincipalMenu extends AppCompatActivity {
     TextView tvTitle;
     ImageView logo;
 
+
     StudentRegistration studentRegistration;
     MaterialAdministration materialAdministration;
     StudentSearch studentSearch;
+    Books books;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,14 +96,18 @@ public class PrincipalMenu extends AppCompatActivity {
                             tvTitle.setTextSize(25);
                             break;
 
-                    case 2: break;
+                    case 2: rvlista.setVisibility(View.GONE);
+                            books = new Books();
+                            getSupportFragmentManager().beginTransaction().replace(R.id.lilaContainer, books).commit();
+                            tvTitle.setText("Administrar Libros");
+                            tvTitle.setTextSize(25);
+                            break;
                     case 3: rvlista.setVisibility(View.GONE);
                             studentSearch = new StudentSearch();
                             getSupportFragmentManager().beginTransaction().replace(R.id.lilaContainer, studentSearch).commit();
                             tvTitle.setText("Busqueda Estudiante");
                             tvTitle.setTextSize(25);
                             break;
-
                 }
                 System.out.println(position);
 

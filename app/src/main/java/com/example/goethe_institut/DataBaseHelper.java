@@ -306,5 +306,131 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
 
+    public void insertBook(Book b) {
+        String route = Environment.getExternalStorageDirectory().getPath()+"/Download/" + b.getDireccion();
+        System.out.println(route);
+        Bitmap bitmap = BitmapFactory.decodeFile(route);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+        bitmap.compress(Bitmap.CompressFormat.PNG, 0, byteArrayOutputStream);
+        byte[] bytesImage = byteArrayOutputStream.toByteArray();
+        ContentValues cv = new ContentValues();
+        SQLiteDatabase db = this.getWritableDatabase();
+        String booksTable = "CREATE TABLE " + LIBROS + " (ID TEXT PRIMARY KEY, TITULO TEXT, AUTOR TEXT, CANTIDAD INTEGER, IMAGEN BLOB)";
+
+        cv.put("ID", b.getCodigo());
+        cv.put("TITULO", b.getTitulo());
+        cv.put("AUTOR", b.getAutor());
+        cv.put("CANTIDAD", b.getCantidad());
+        cv.put("IMAGEN", bytesImage);
+
+        db.insert(LIBROS, null, cv);
+
+
+    }
+
+    public ArrayList<Book> selectBooks(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + LIBROS;
+        ArrayList<Book> books = new ArrayList<Book>();
+
+        Cursor cursor = db.rawQuery(query, null);
+
+                /*
+         String booksTable = "CREATE TABLE " + LIBROS + " (ID TEXT PRIMARY KEY, TITULO TEXT, AUTOR TEXT, CANTIDAD INTEGER, IMAGEN BLOB)";
+
+         */
+
+        if(cursor.moveToFirst()){
+            do{
+                String id = cursor.getString(0);
+                String title = cursor.getString(1);
+                String author = cursor.getString(2);
+                int cantidad = cursor.getInt(3);
+                byte[] bytesImage = cursor.getBlob(4);
+
+                Bitmap image = BitmapFactory.decodeByteArray(bytesImage, 0, bytesImage.length);
+                books.add(new Book(id, title, author, cantidad, null, image));
+
+
+            }while(cursor.moveToNext());
+            cursor.close();
+            db.close();
+        }
+
+
+        return books;
+
+    }
+
+
+    public void deleteBook(String id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(LIBROS,"ID = " + id, null);
+    }
+
+    public void updateBook(Book b){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        if(b.getDireccion() == null){
+            cv.put("ID", b.getCodigo());
+            cv.put("TITULO", b.getTitulo());
+            cv.put("AUTOR", b.getAutor());
+            cv.put("CANTIDAD", b.getCantidad());
+
+        }
+        else{
+
+            String route = Environment.getExternalStorageDirectory().getPath()+"/Download/" + b.getDireccion();
+            System.out.println(route);
+            Bitmap bitmap = BitmapFactory.decodeFile(route);
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+            bitmap.compress(Bitmap.CompressFormat.PNG, 0, byteArrayOutputStream);
+            byte[] bytesImage = byteArrayOutputStream.toByteArray();
+
+            cv.put("ID", b.getCodigo());
+            cv.put("TITULO", b.getTitulo());
+            cv.put("AUTOR", b.getAutor());
+            cv.put("CANTIDAD", b.getCantidad());
+            cv.put("IMAGEN", bytesImage);
+
+        }
+        db.update(LIBROS, cv, "ID = '" + b.getCodigo() + "' ", null);
+        /*
+
+
+
+
+
+        if(changeImage){
+            String route = Environment.getExternalStorageDirectory().getPath()+"/Download/" + material.getImageDirection();
+            System.out.println(route);
+            Bitmap bitmap = BitmapFactory.decodeFile(route);
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+            bitmap.compress(Bitmap.CompressFormat.PNG, 0, byteArrayOutputStream);
+            byte[] bytesImage = byteArrayOutputStream.toByteArray();
+
+            cv.put("TIPO", material.getType());
+            cv.put("COSTO", material.getCost());
+            cv.put("CANTIDAD", material.getCantidad());
+            cv.put("DESCRIPCION", material.getDescription());
+            cv.put("IMAGEN", bytesImage);
+        }
+        else{
+
+            cv.put("TIPO", material.getType());
+            cv.put("COSTO", material.getCost());
+            cv.put("CANTIDAD", material.getCantidad());
+            cv.put("DESCRIPCION", material.getDescription());
+
+        }
+       db.update(MATERIAL, cv, "ID = " + material.getId(), null);
+         */
+    }
+
+
 
 }
